@@ -14,4 +14,4 @@ EXPOSE 9212
 RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]
 # start app
-CMD ng serve --host 0.0.0.0
+CMD npm start --host 0.0.0.0
