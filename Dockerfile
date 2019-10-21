@@ -12,5 +12,5 @@ COPY nginx/default.conf /etc/nginx/conf.d/
 RUN sed -i.bak 's/listen\(.*\)80;/listen 9212;/' /etc/nginx/conf.d/default.conf
 COPY --from=node /app/dist/AngularTestApp /usr/share/nginx/html
 EXPOSE 9212
-RUN sed -i.bak 's/^user/#user/' /etc/nginx/default.conf
+RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf.conf
 CMD ["nginx", "-g", "daemon off;"]
