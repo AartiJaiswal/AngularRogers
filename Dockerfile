@@ -8,11 +8,8 @@ RUN npm run build --prod
 FROM nginx:stable     
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
-COPY nginx/default.conf /etc/nginx/conf.d/
-RUN sed -i.bak 's/listen\(.*\)80;/listen 9212;/' /etc/nginx/conf.d/default.conf
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
 
+RUN sed -i.bak 's/listen\(.*\)80;/listen 9212;/' /etc/nginx/conf.d/nginx.conf
 COPY --from=node /app/dist/AngularTestApp /usr/share/nginx/html
 EXPOSE 9212
 RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
