@@ -1,6 +1,7 @@
 FROM node:latest as node
-RUN adduser -D myuser
-USER myuser
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser
+USER appuser
 WORKDIR /app
 COPY . .
 COPY package.json ./
