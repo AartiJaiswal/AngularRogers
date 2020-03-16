@@ -18,7 +18,7 @@ RUN chown -R app:app /app
 USER app
 RUN chown -R app /app
 RUN chmod -R u+rX /app
-RUN npm install
+RUN sudo npm install
 RUN npm install -g @angular/cli@7.3.9
 RUN chown -R 999:999 "/home/app/.npm"
 RUN npm run build --prod
