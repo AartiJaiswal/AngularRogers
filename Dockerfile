@@ -30,9 +30,9 @@ RUN chown -R app:app $APP_HOME
 
 # Change to the app user.
 USER app
-
-RUN npm install
 RUN chown -R 999:999 "/home/app/.npm
+RUN npm install
+
 RUN npm install -g @angular/cli@7.3.9
 RUN npm run build --prod
 FROM nginx:stable    
