@@ -27,10 +27,12 @@ ADD . $APP_HOME
 # Chown all the files to the app user.
 RUN chown -R app:app $APP_HOME
 
+
 # Change to the app user.
 USER app
 
 RUN npm install
+RUN chown -R 999:999 "/home/app/.npm
 RUN npm install -g @angular/cli@7.3.9
 RUN npm run build --prod
 FROM nginx:stable    
