@@ -1,4 +1,7 @@
 FROM node:latest as node
+RUN useradd -u 8877 john
+# Change to non-root privilege
+USER john
 WORKDIR /app
 COPY . .
 COPY package.json ./
