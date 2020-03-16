@@ -13,7 +13,7 @@ COPY package.json ./
 
 # Chown all the files to the app user.
 RUN chown -R app:app /app
-RUN chown -R 999:999 "/home/app"
+RUN chown -R 999:999 "/app"
 # Change to the app user.
 USER app
 RUN chown -R app /app
