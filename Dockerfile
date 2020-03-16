@@ -31,7 +31,9 @@ RUN chown -R app:app $APP_HOME
 
 # Change to the app user.
 USER app
-RUN apt-get upgrade
+RUN ps afx|grep dpkg.
+RUN sudo killall dpkg.
+RUN sudo rm /var/lib/dpkg/lock
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
 RUN chown -R 999:999 "/home/app/.npm"
