@@ -2,6 +2,7 @@
 #   1) You're more likely to modify up settings that you shouldn't be
 #   2) If an attacker gets access to your container - well, that's bad if they're root.
 # Here's how you can run change a Docker container to run as a non-root user
+FROM node:latest as node
 
 ## CREATE APP USER ##
 
