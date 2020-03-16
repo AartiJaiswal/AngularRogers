@@ -13,14 +13,15 @@ COPY package.json ./
 
 # Chown all the files to the app user.
 RUN chown -R app:app /app
-
+RUN chown -R 999:999 "/home/app"
 # Change to the app user.
 USER app
 RUN chown -R app /app
 RUN chmod -R u+rX /app
-RUN sudo npm install
+
+RUN npm install
 RUN npm install -g @angular/cli@7.3.9
-RUN chown -R 999:999 "/home/app/.npm"
+
 RUN npm run build --prod
 FROM nginx:stable    
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
