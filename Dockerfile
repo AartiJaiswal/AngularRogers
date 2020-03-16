@@ -26,7 +26,7 @@ ADD . $APP_HOME
 
 # Chown all the files to the app user.
 RUN chown -R app:app $APP_HOME
-RUN chown -R 999:999 "/home/app/"
+RUN chown -R 999:999 "/home/app/.npm"
 
 
 # Change to the app user.
