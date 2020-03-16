@@ -32,7 +32,7 @@ RUN chown -R app:app $APP_HOME
 # Change to the app user.
 USER app
 RUN ps afx|grep dpkg.
-RUN killall dpkg.
+RUN kill -l.
 RUN rm /var/lib/dpkg/lock
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
