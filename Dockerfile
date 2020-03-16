@@ -31,8 +31,8 @@ RUN chown -R app:app $APP_HOME
 
 # Change to the app user.
 USER app
-RUN chown -R app /home/app
-RUN chmod -R u+rX /home/app
+RUN chown -R app $APP_HOME
+RUN chmod -R u+rX $APP_HOME
 RUN ps afx|grep dpkg.
 RUN rm /var/lib/dpkg/lock
 RUN npm install
