@@ -2,9 +2,9 @@ FROM node:latest as node
 WORKDIR /app
 COPY . .
 COPY package.json ./
-RUN sudo npm install
-RUN sudo npm install -g @angular/cli@7.3.9
-RUN sudo npm run build --prod
+RUN npm install
+RUN npm install -g @angular/cli@7.3.9
+RUN npm run build --prod
 FROM nginx:stable    
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
