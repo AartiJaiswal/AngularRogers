@@ -9,7 +9,6 @@ resources:
 - repo: self
 
 variables:
-variables:
   imageName: 'pipelines-javascript-docker'
 
 stages:
