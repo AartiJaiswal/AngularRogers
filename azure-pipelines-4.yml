@@ -14,7 +14,7 @@ variables:
   imageRepository: 'trail'
   containerRegistry: 'demo123344.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.aarti)'
+  tag: 'Aarti'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
