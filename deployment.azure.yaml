@@ -14,7 +14,7 @@ spec:
     spec: 
       containers: 
       - name: angular 
-        image: houssemdocker/angular-app:#{Build.BuildId}#
+        image: abhishekaarti-docker-local.jfrog.io/dockerrepo:#{Build.BuildId}#
         ports: 
         - containerPort: 80 
 --- 
