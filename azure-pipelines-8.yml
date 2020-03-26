@@ -1,0 +1,90 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+    stages:
+- stage: Build
+  jobs:
+  - job:
+    pool: my-agent-pool
+    steps:
+    - task: Docker@2
+      displayName: 'Login'
+      inputs:
+        command: login
+        containerRegistry: docker-local-dev
+    - task: Docker@2
+      displayName: Build and Push
+      inputs:
+        command: buildAndPush
+        repository: docker-local-dev/aarti-poc
+        tags: |
+          latest
+          $(Build.SourceBranchName)
+          $(Build.SourceVersion)-$(Build.BuildId)
+    - task: Docker@2
+      displayName: 'Logout'
+      inputs:
+        command: logout
+        containerRegistry: docker-local-dev
+        # ...
+# 'Deploy to Dev'
+# ...
+- stage: Promote_image_to_QA
+
+  jobs:
+  - job:
+    displayName: Promote_image_to_QA
+    pool: my-agent-pool # or a hosted agent pool
+    steps:
+    - task: Docker@2
+      displayName: 'Login'
+      inputs:
+        command: login
+        containerRegistry: docker-local-dev
+    - bash: |
+        docker pull "docker-local-dev/aarti-poc:$(Build.SourceVersion)-$(Build.BuildId)"
+    - task: Docker@2
+      displayName: 'Logout'
+      inputs:
+        command: logout
+        containerRegistry: docker-local-dev
+    - task: Docker@2
+      displayName: 'Login'
+      inputs:
+        command: login
+        containerRegistry: docker-local-dev-qa
+    - bash: |
+        docker tag "docker-local-dev/aarti-poc:$(Build.SourceVersion)-$(Build.BuildId)" \
+                   "docker-local-qa/aarti-poc:$(Build.SourceVersion)-$(Build.BuildId)"
+        docker push "docker-local-qa/aarti-poc:$(Build.SourceVersion)-$(Build.BuildId)"
+    - task: Docker@2
+      displayName: 'Logout'
+      inputs:
+        command: logout
+        containerRegistry: docker-local-dev      
