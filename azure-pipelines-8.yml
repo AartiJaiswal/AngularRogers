@@ -27,7 +27,7 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-    stages:
+stages:
 - stage: Build
   jobs:
   - job:
